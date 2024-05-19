@@ -1,1 +1,18 @@
-// Hello, World!
+// Punctuators
+{ } ( ) . , ;
+
+// Operators
++ - / *
+> < >= <= != == =
+
+// String
+"Hello World!"
+"Hello,
+      World!"
+
+// Integer
+11 
+
+// Float
+22.50
+
