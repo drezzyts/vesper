@@ -10,6 +10,15 @@
 "Hello,
       World!"
 
+// Char
+'a'
+'1'
+
+// Identifiers
+abc
+_abc
+num1
+
 // Integer
 11 
 

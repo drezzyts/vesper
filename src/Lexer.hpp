@@ -16,12 +16,15 @@ private:
 
   bool isEof();
   bool match(char expected);
-  
-  void readLexeme(std::string* dest);
+
+  void readLexeme(std::string *dest);
   void readToken();
   void pushToken(TokenType type);
+
   void readString();
   void readNumber();
+  void readIdentifier();
+  void readChar();
 
   char next();
   char peek(int offset);
@@ -30,8 +33,8 @@ private:
 public:
   inline Lexer(const std::string &source)
       : source(source), tokens() {}
-      
-  Tokens_t readTokens();    
+
+  Tokens_t readTokens();
 };
 
 #endif

@@ -24,7 +24,7 @@ void Lexer::readLexeme(std::string *dest)
   char *lexeme = new char[this->current - this->start + 1];
   this->source.copy(lexeme, this->current - this->start, this->start);
   lexeme[this->current - this->start] = '\0';
-  
+
   *dest = std::string(lexeme);
 
   delete[] lexeme;
@@ -95,11 +95,16 @@ void Lexer::readToken()
   case '"':
     this->readString();
     break;
+  case '\'':
+    this->readChar();
+    break;
   default:
     Position pos(this->line, this->current);
 
     if (isdigit(curr))
       readNumber();
+    else if (isalpha(curr) || curr == '_')
+      readIdentifier();
     else
       Vesper::report(pos, " --> [lexer]", "Unexpected char founded while lexing: " + this->source.substr(this->start, this->current));
     break;
@@ -108,7 +113,7 @@ void Lexer::readToken()
 
 void Lexer::pushToken(TokenType type)
 {
-  
+
   std::string lexeme;
   this->readLexeme(&lexeme);
 
@@ -135,36 +140,53 @@ void Lexer::readString()
   }
 
   this->next();
-
-  std::string lexeme;
-  this->readLexeme(&lexeme);
-
-  Position pos(this->line, this->current);
-  Token token(TokenType::STRING, lexeme, pos);
-
-  this->tokens.push_back(token);
+  this->pushToken(TokenType::STRING);
 }
 
 void Lexer::readNumber()
 {
   TokenType type = TokenType::INTEGER;
 
-  while (isdigit(this->peek())) this->next();
+  while (isdigit(this->peek()))
+    this->next();
 
-  if (this->peek() == '.' && isdigit(this->peek(1))) {
+  if (this->peek() == '.' && isdigit(this->peek(1)))
+  {
     type = TokenType::FLOAT;
     this->next();
-    
-    while (isdigit(this->peek())) this->next();
+
+    while (isdigit(this->peek()))
+      this->next();
   }
 
-  std::string lexeme;
-  this->readLexeme(&lexeme);
+  this->pushToken(type);
+}
 
-  Position pos(this->line, this->current);
-  Token token(type, lexeme, pos);
+void Lexer::readIdentifier()
+{
+  while (isdigit(this->peek()) || isalpha(this->peek()) || this->peek() == '_')
+    this->next();
+  this->pushToken(TokenType::IDENTIFIER);
+}
 
-  this->tokens.push_back(token);
+void Lexer::readChar()
+{
+  if (this->isEof())
+  {
+    Vesper::report({this->line, this->current}, " --> [lexer]", "Unterminated char.");
+    return;
+  }
+
+  this->next();
+
+  if (this->peek() != '\'')
+  {
+    Vesper::report({this->line, this->current}, " --> [lexer]", "Unterminated char.");
+    return;
+  }
+
+  this->next();
+  this->pushToken(TokenType::CHAR);
 }
 
 char Lexer::next()
@@ -176,7 +198,7 @@ char Lexer::peek(int offset)
 {
   int pos = this->current + offset;
 
-  if (pos >= (int) this->source.length())
+  if (pos >= (int)this->source.length())
     return '\0';
   return this->source.at(pos);
 }
