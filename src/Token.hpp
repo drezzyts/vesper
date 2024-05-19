@@ -20,12 +20,12 @@ public:
 
   inline std::string toString()
   {
-    return this->getTokenTypeName() + ": " + this->lexeme;
+    return this->getTokenTypeName() + ": '" + this->lexeme + "' ";
   }
 
   inline void write()
   {
-    std::cout << this->pos.toString() << "--> " << this->toString() << std::endl;
+    std::cout << this->toString() << "--> " << this->pos.toString() << std::endl;
   }
 
   std::string getTokenTypeName();
