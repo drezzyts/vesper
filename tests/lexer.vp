@@ -25,3 +25,7 @@ num1
 // Float
 22.50
 
+// Keywords
+if else return nil true false
+class self super fun puts let
+while for and or
