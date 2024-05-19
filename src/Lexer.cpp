@@ -166,7 +166,15 @@ void Lexer::readIdentifier()
 {
   while (isdigit(this->peek()) || isalpha(this->peek()) || this->peek() == '_')
     this->next();
-  this->pushToken(TokenType::IDENTIFIER);
+
+  TokenType type = TokenType::IDENTIFIER;
+  std::string lexeme;
+  this->readLexeme(&lexeme);
+
+  if (Token::getKeywordType(lexeme) != TokenType::INVALID)
+    type = Token::getKeywordType(lexeme);
+    
+  this->pushToken(type);
 }
 
 void Lexer::readChar()

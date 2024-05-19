@@ -29,6 +29,7 @@ public:
   }
 
   std::string getTokenTypeName();
+  static TokenType getKeywordType(std::string keyword);
 };
 
 typedef std::vector<Token> Tokens_t;

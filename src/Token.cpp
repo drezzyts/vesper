@@ -48,3 +48,41 @@ std::string Token::getTokenTypeName()
         default: return "Invalid token";
     }
 }
+
+TokenType Token::getKeywordType(std::string keyword) {
+    if (keyword == "and") {
+        return TokenType::AND;
+    } else if (keyword == "class") {
+        return TokenType::CLASS;
+    } else if (keyword == "else") {
+        return TokenType::ELSE;
+    } else if (keyword == "false") {
+        return TokenType::FALSE;
+    } else if (keyword == "fun") {
+        return TokenType::FUN;
+    } else if (keyword == "for") {
+        return TokenType::FOR;
+    } else if (keyword == "if") {
+        return TokenType::IF;
+    } else if (keyword == "nil") {
+        return TokenType::NIL;
+    } else if (keyword == "or") {
+        return TokenType::OR;
+    } else if (keyword == "puts") {
+        return TokenType::PUTS;
+    } else if (keyword == "return") {
+        return TokenType::RETURN;
+    } else if (keyword == "super") {
+        return TokenType::SUPER;
+    } else if (keyword == "self") {
+        return TokenType::SELF;
+    } else if (keyword == "true") {
+        return TokenType::TRUE;
+    } else if (keyword == "let") {
+        return TokenType::LET;
+    } else if (keyword == "while") {
+        return TokenType::WHILE;
+    } else {
+        return TokenType::INVALID;
+    }
+}

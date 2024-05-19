@@ -2,6 +2,7 @@
 #define TOKEN_TYPE_H
 
 #include <string>
+#include <unordered_map>
 
 enum class TokenType
 {
@@ -23,7 +24,7 @@ enum class TokenType
   PUTS, RETURN, SUPER, SELF, TRUE, LET, WHILE,
 
   // Others
-  EOF_T
+  INVALID, EOF_T 
 };
 
 #endif
