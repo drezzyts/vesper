@@ -3,10 +3,9 @@
 
 #include <string>
 
-enum class TokenType {
+enum class TokenType
+{
   EOF_T
 };
-
-std::string getTokenTypeName(const TokenType type);
 
 #endif

@@ -20,13 +20,15 @@ public:
 
   inline std::string toString()
   {
-    return getTokenTypeName(this->type) + ": " + this->lexeme;
+    return this->getTokenTypeName() + ": " + this->lexeme;
   }
 
   inline void write()
   {
     std::cout << this->pos.toString() << "--> " << this->toString() << std::endl;
   }
+
+  std::string getTokenTypeName();
 };
 
 typedef std::vector<Token> Tokens_t;
